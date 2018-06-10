@@ -2,14 +2,31 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import {FormLayout, Form, TextField, Button} from '@shopify/polaris';
+import axios from 'axios';
 
 export class SettingsForm extends React.Component {
   state = {
-    value: '',
+    value: ''
   };
 
-  render() {
+  componentWillMount() {
+    axios.post(`/v1/graphql`, {
+      query: `
+        query GetShop { 
+          shop { 
+            gateway_name
+          }
+        }
+      `,
+    }).then(resp => {
+      this.setState({ 
+        value: resp.data.data.shop.gateway_name
+      })
+      console.log(this.state.value);
+    });
+  }
 
+  render() {
     return (
       <FormLayout>
         <Form noValidate onSubmit={this.handleSubmit}>
@@ -27,7 +44,29 @@ export class SettingsForm extends React.Component {
   }
 
   handleSubmit = (event) => {
-    this.setState({value: ''});
+    var query = `
+      mutation($input: UpdateGatewayInput!) {
+        updateGatewayMutation(input: $input) {
+          shop {
+            gateway_name
+          }
+        }
+      }
+    `;
+
+    axios.post(`/v1/graphql`, {
+      query: query,
+      variables: {
+        input: {
+          gateway_name: this.state.value
+        }
+      }
+    }).then(resp => {
+      this.setState({ 
+        value: resp.data.data.updateGatewayMutation.shop.gateway_name
+      })
+      console.log(this.state.value);
+    });
   };
 
   handleChange = (value) => {

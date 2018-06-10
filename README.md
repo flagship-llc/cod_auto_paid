@@ -26,6 +26,8 @@
 - `$ bundle install`  
 - `$ rake db:setup`  
 - `$ cp .env.example .env` and fill in credentials
+- `$ npm install`
+- `$ yarn install`
 
 
 ## Start up
