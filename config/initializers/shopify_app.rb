@@ -9,4 +9,5 @@ ShopifyApp.configure do |config|
   config.webhooks = [
     {topic: 'orders/create', address: "https://#{ENV['HOSTNAME']}/webhooks/orders_create", format: 'json'}
   ]
+  config.api_version = '2019-10'
 end
