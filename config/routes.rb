@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/v1/graphql"
   end
   scope 'v1', module: 'v1' do
-	  post "/graphql", to: "graphql#execute"
+    post '/auth/:provider/graphql', to: 'graphql#execute'
   end
   root :to => 'home#index'
   mount ShopifyApp::Engine, at: '/'

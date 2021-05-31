@@ -27,6 +27,7 @@ gem "rack", ">= 2.0.6"
 gem "loofah", ">= 2.2.3"
 gem "activejob", ">= 5.2.1.1"
 gem "activestorage", ">= 5.2.1.1"
+gem 'omniauth-rails_csrf_protection'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
